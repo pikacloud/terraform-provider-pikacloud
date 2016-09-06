@@ -1,7 +1,8 @@
 language: go
 env:
-  matrix:
+  global:
     - secure: TDBkmNStcbEOrjCmP9lWSAyXn4PPFPPf/JWnZQpkSyyvZJ+mV4cGqiAevSX5vbTuiawZ2agkoSZAPhouT7vNpHFFL9YP/BFH5xeLPMsVTWUeSjXSakGw7GWcZzszN/6wg9ad9MU6eyIlAoC51bwFgww6+TjvXiSwQ3oC1ygHQmrE2z+iH6VTctS1r0manv/MY+IeB+dGLk0+jie+rQFmiKa6cvTLgYLNeAtcQwnoXduaSx7uzZlYcNjtgpHX2lN4g09nzXugwU2ILqAkeOqFxMmRL4HzZRzqZfdUJaKtV+MAXoigEleBdueAu3FO2H8Wl/z+6WWbOmKLDJdaDo4VGrgeXGTH+26AmbbIqNcv/QiBvUDyir6fWpZGHJrjlSYYuJBtJlL+qbS/w6Eay73MCXI1rsyD5WFrbYs5Ht0sknmgtmwqBuiAudxxxpz6hXuD803W5JQG/r/vL0o5ydFiXC84o5JaQMtzp3w7+R2vJ/SeDJl3IH5XdiR+TgZgcb0UFVtZKbP9SoHqGJIbM26p8555MyOfpRiuMJzKH4Shyoc2+OmYJ7stFbaaa0XA8GCrV9ZKNoXPlWEzeCcbpUGIm86P36DEQQZbKdZGquVte1dGX8eGvd7SNsLhk4Wz0uCxLCF4QJkp8WeGDaOuS4mpFkdJd9wUNM29Y9CswDPdq1E=
+  matrix:
     - TF_ACC=1
 notifications:
   slack:
