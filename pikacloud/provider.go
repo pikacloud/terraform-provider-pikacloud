@@ -18,7 +18,8 @@ func Provider() terraform.ResourceProvider {
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
-			"pikacloud_zone": resourcePikacloudZone(),
+			"pikacloud_zone":       resourcePikacloudZone(),
+			"pikacloud_zonerecord": resourcePikacloudZoneRecord(),
 		},
 
 		ConfigureFunc: providerConfigure,
