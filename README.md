@@ -28,7 +28,7 @@ provider "pikacloud" {
 
 ```
 resource "pikacloud_zone" "example_com" {
-  domain_name "example.com"
+  domain_name = "example.com"
 }
 ```
 #### Argument Reference
