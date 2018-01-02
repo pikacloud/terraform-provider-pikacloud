@@ -62,10 +62,6 @@ func resourcePikacloudZoneRecord() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 			},
-			"id": &schema.Schema{
-				Type:     schema.TypeInt,
-				Computed: true,
-			},
 		},
 	}
 }
@@ -100,13 +96,15 @@ func resourcePikacloudZoneRecordCreate(d *schema.ResourceData, meta interface{})
 
 func resourcePikacloudZoneRecordRead(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*gopikacloud.Client)
-
-	zonerecord, err := client.ZoneRecord(d.Get("zone").(int), d.Id())
+	zoneRecordID, err := strconv.Atoi(d.Id())
+	if err != nil {
+		return err
+	}
+	zonerecord, err := client.ZoneRecord(d.Get("zone").(int), zoneRecordID)
 	if err != nil {
 		return fmt.Errorf("Couldn't find Pikacloud zone record: %s", err)
 	}
 
-	d.Set("id", zonerecord.ID)
 	d.Set("zone", zonerecord.ZoneID)
 	d.Set("rtype", zonerecord.Rtype)
 	d.Set("name", zonerecord.Name)
@@ -122,14 +120,18 @@ func resourcePikacloudZoneRecordRead(d *schema.ResourceData, meta interface{}) e
 
 func resourcePikacloudZoneRecordDelete(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*gopikacloud.Client)
-	zonerecord := gopikacloud.ZoneRecord{ZoneID: d.Get("zone").(int), ID: d.Get("id").(int)}
+	zoneRecordID, err := strconv.Atoi(d.Id())
+	if err != nil {
+		return err
+	}
+	zonerecord := gopikacloud.ZoneRecord{ZoneID: d.Get("zone").(int), ID: zoneRecordID}
 
 	log.Printf("[INFO] Deleting Pikacloud zone record: %s", d.Id())
 
-	err := zonerecord.Delete(client)
+	errDelete := zonerecord.Delete(client)
 
-	if err != nil {
-		return fmt.Errorf("Error deleting Pikacloud zone record: %s", err)
+	if errDelete != nil {
+		return fmt.Errorf("Error deleting Pikacloud zone record: %s", errDelete)
 	}
 
 	return nil
